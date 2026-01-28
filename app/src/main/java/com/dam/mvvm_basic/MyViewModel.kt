@@ -110,6 +110,7 @@ class MyViewModel(): ViewModel() {
             while (segundos.value == 0 || segundos.value<1000) {
                 delay(1000)
                 segundos.value++
+                inactivo.value = EstadosNuevos.ACTIVO
             }
             cancelarCuenta()
         }

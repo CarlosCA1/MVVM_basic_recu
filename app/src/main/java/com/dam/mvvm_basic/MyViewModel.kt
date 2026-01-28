@@ -3,6 +3,7 @@ package com.dam.mvvm_basic
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -17,7 +18,12 @@ class MyViewModel(): ViewModel() {
     // patron de diseño observer
     val estadoActual = MutableStateFlow(Estados.INICIO)
 
-    //val colorActual = MutableStateFlow(EstadosAuxiliares.SIN_COLOR)
+    // observer para iniciar segundos, estados y uso de job para cancelar la cuenta
+    val inactivo = MutableStateFlow(EstadosNuevos.INACTIVO)
+
+    var activo : Job? = null
+
+    var segundos = MutableStateFlow(0)
 
     // este va a ser nuestra lista para la secuencia random
     // usamos mutable, ya que la queremos modificar
@@ -95,14 +101,26 @@ class MyViewModel(): ViewModel() {
             delay(1500)
         }
     }
-}
 
-    /*
-    fun cambiaColor(){
-        cambiaColor=viewModelScope.launch{
-            colorActual.value = EstadosAuxiliares.SIN_COLOR
-            if ()
+    //función con corrutina que cuenta los segundos
+    fun activo() {
+        activo = viewModelScope.launch {
+            inactivo.value = EstadosNuevos.INACTIVO
+            segundos.value = 0
+            while (segundos.value == 0 || segundos.value<1000) {
+                delay(1000)
+                segundos.value++
+            }
+            cancelarCuenta()
+        }
     }
-}
 
-*/
+//reiniciamos
+    fun cancelarCuenta(){
+        activo?.cancel()
+        estadoActual.value = Estados.INICIO
+        inactivo.value = EstadosNuevos.INACTIVO
+        }
+    }
+
+

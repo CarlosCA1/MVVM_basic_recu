@@ -45,7 +45,10 @@ enum class EstadosAuxiliares(val txt: String, val funcion : (String, String) -> 
     AUX1(txt = "aux1", {string1, string2-> string1.length}),
     AUX2(txt = "aux2", {string1, string2-> string2.length}),
     AUX3(txt = "aux3", {string1, string2-> string1.length + string2.length}),
-    /*
+}
+
+enum class EstadosNuevos(val txt: String) {
+
     SIN_COLOR(txt="incoloro"),
 
     ROJO(txt="rojo"),
@@ -54,8 +57,9 @@ enum class EstadosAuxiliares(val txt: String, val funcion : (String, String) -> 
 
     AZUL(txt="azul"),
 
-    AMARILLO(txt="amarillo")
-}
+    AMARILLO(txt="amarillo"),
 
- */
+    ACTIVO(txt="activo"),
+
+    INACTIVO(txt = "inactivo")
 }

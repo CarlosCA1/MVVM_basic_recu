@@ -32,6 +32,8 @@ import androidx.compose.runtime.collectAsState
 
 @Composable
 fun IU(miViewModel: MyViewModel) {
+
+    //var colorActual = miViewModel.colorActual.collectAsState()
     // para que sea mas facil la etiqueta del log
     // val TAG_LOG = "miDebug"
 
@@ -42,7 +44,8 @@ fun IU(miViewModel: MyViewModel) {
         verticalArrangement = Arrangement.SpaceAround)
     {
         Column {
-            //cambiaColor(miViewModel)
+            //Los segundos se muestran arriba
+            activo(miViewModel)
             Row {
                 // creo un boton rojo
                 Boton(miViewModel, Colores.CLASE_ROJO)
@@ -64,15 +67,16 @@ fun IU(miViewModel: MyViewModel) {
 }
 
 
-/*
+
+//Mostramos los segundos
 @Composable
-fun cambiaColor(miViewModel: MyViewModel) {
-    val color by miViewModel.colorActual.collectAsState()
+fun activo(miViewModel: MyViewModel) {
+    val color by miViewModel.segundos.collectAsState()
     Text(
-        text = "Color actual: $color"
+        text = "Segundos: $color"
     )
 }
- */
+
 
 
 @Composable
@@ -94,7 +98,8 @@ fun Boton(miViewModel: MyViewModel, enum_color: Colores) {
         onClick = {
             Log.d(TAG_LOG, "Dentro del boton: ${enum_color.ordinal}")
             miViewModel.comprobar(enum_color.ordinal)
-            //miViewModel.cambiaColor()
+            //hacemos que empiece la corrutina al clicar
+            miViewModel.activo()
                   },
         modifier = Modifier
             .size((80).dp, (40).dp)
@@ -142,6 +147,8 @@ fun Boton_Start(miViewModel: MyViewModel, enum_color: Colores) {
         onClick = {
             Log.d(TAG_LOG, "Dentro del Start - Estado: ${miViewModel.estadoActual.value.name}")
             miViewModel.crearRandom()
+            miViewModel.activo()
+            miViewModel.activo()
         },
         modifier = Modifier
             .size((100).dp, (40).dp)

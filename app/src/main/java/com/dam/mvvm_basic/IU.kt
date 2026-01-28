@@ -42,6 +42,7 @@ fun IU(miViewModel: MyViewModel) {
         verticalArrangement = Arrangement.SpaceAround)
     {
         Column {
+            //cambiaColor(miViewModel)
             Row {
                 // creo un boton rojo
                 Boton(miViewModel, Colores.CLASE_ROJO)
@@ -62,6 +63,18 @@ fun IU(miViewModel: MyViewModel) {
     }
 }
 
+
+/*
+@Composable
+fun cambiaColor(miViewModel: MyViewModel) {
+    val color by miViewModel.colorActual.collectAsState()
+    Text(
+        text = "Color actual: $color"
+    )
+}
+ */
+
+
 @Composable
 fun Boton(miViewModel: MyViewModel, enum_color: Colores) {
 
@@ -70,7 +83,6 @@ fun Boton(miViewModel: MyViewModel, enum_color: Colores) {
 
     // variable para el estado del boton
     var _activo = miViewModel.estadoActual.collectAsState().value.boton_activo
-
 
     // separador entre botones
     Spacer(modifier = Modifier.size(10.dp))
@@ -82,6 +94,7 @@ fun Boton(miViewModel: MyViewModel, enum_color: Colores) {
         onClick = {
             Log.d(TAG_LOG, "Dentro del boton: ${enum_color.ordinal}")
             miViewModel.comprobar(enum_color.ordinal)
+            //miViewModel.cambiaColor()
                   },
         modifier = Modifier
             .size((80).dp, (40).dp)
@@ -90,6 +103,7 @@ fun Boton(miViewModel: MyViewModel, enum_color: Colores) {
         Text(text = enum_color.txt, fontSize = 10.sp)
     }
 }
+
 
 @Composable
 fun Boton_Start(miViewModel: MyViewModel, enum_color: Colores) {

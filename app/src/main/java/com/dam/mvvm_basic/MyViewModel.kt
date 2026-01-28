@@ -17,6 +17,8 @@ class MyViewModel(): ViewModel() {
     // patron de diseño observer
     val estadoActual = MutableStateFlow(Estados.INICIO)
 
+    //val colorActual = MutableStateFlow(EstadosAuxiliares.SIN_COLOR)
+
     // este va a ser nuestra lista para la secuencia random
     // usamos mutable, ya que la queremos modificar
     var _numbers = MutableStateFlow(0)
@@ -78,16 +80,29 @@ class MyViewModel(): ViewModel() {
             // los recorremos
             var estadoAux = EstadosAuxiliares.AUX1
             Log.d(TAG_LOG, "estado (corutina): ${estadoAux}")
-            Log.d(TAG_LOG, "mensaje (corutina): ${msg}")
+            Log.d(TAG_LOG, "mensaje (corutina): ${estadoAux}")
+            Log.d(TAG_LOG, "mensaje (corutina): ${estadoAux.funcion}")
             delay(1500)
             estadoAux = EstadosAuxiliares.AUX2
             Log.d(TAG_LOG, "estado (corutina): ${estadoAux}")
             Log.d(TAG_LOG, "mensaje (corutina): ${msg}")
+            Log.d(TAG_LOG, "mensaje (corutina): ${estadoAux.funcion}")
             delay(1500)
             estadoAux = EstadosAuxiliares.AUX3
             Log.d(TAG_LOG, "estado (corutina): ${estadoAux}")
             Log.d(TAG_LOG, "mensaje (corutina): ${msg}")
+            Log.d(TAG_LOG, "mensaje (corutina): ${estadoAux.funcion}")
             delay(1500)
         }
     }
 }
+
+    /*
+    fun cambiaColor(){
+        cambiaColor=viewModelScope.launch{
+            colorActual.value = EstadosAuxiliares.SIN_COLOR
+            if ()
+    }
+}
+
+*/

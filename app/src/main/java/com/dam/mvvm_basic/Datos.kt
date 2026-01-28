@@ -41,6 +41,8 @@ enum class Estados(val start_activo: Boolean, val boton_activo: Boolean) {
  * Estados auxiliares para corutinas en el ViewModel
  * @param txt: String nombre del estado
  */
+
+//usamos .length para clacular la longitud
 enum class EstadosAuxiliares(val txt: String, val funcion : (String, String) -> Int) {
     AUX1(txt = "aux1", {string1, string2-> string1.length}),
     AUX2(txt = "aux2", {string1, string2-> string2.length}),
